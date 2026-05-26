@@ -1,225 +1,682 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f7f7f7;
-  color: #333;
-  scroll-behavior: smooth;
+/* =========================
+   RESET & GLOBAL
+========================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* Navigasi */
-nav {
-  background-color: #474747;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f7f7f7;
+  color:#333;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+nav{
+  position:sticky;
+  top:0;
+  z-index:999;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 24px;
+  background:rgba(71,71,71,0.92);
+  backdrop-filter:blur(6px);
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* Logo */
-.logo {
-  display: flex;
-  align-items: center;
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.logo img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
+.logo img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  transition:0.3s ease;
 }
 
-.logo span {
-  color: white;
-  font-weight: bold;
-  font-size: 1.1em;
-  letter-spacing: 0.5px;
+.logo img:hover{
+  transform:rotate(6deg) scale(1.05);
+}
+
+.logo span{
+  color:white;
+  font-weight:bold;
+  font-size:1.1rem;
 }
 
 /* Menu */
-.menu {
-  display: flex;
-  align-items: center;
+.menu{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
 }
 
-.menu a {
-  color: white;
-  text-decoration: none;
-  margin: 0 12px;
-  font-weight: bold;
-  transition: color 0.3s;
+
+.menu a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  position:relative;
+  padding:6px 0;
+  transition:0.3s ease;
 }
 
-.menu a:hover {
-  color: #ffe1e1;
+.menu a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0%;
+  height:2px;
+  background:#ff6f61;
+  transition:0.35s ease;
 }
 
-/* Beranda */
-header {
-  position: relative;
-  text-align: center;
-  color: white;
+.menu a:hover{
+  color:#ffe1e1;
 }
 
-header img {
-  width: 100%;
-  height: 80vh;
-  object-fit: cover;
-  filter: brightness(60%);
+.menu a:hover::after{
+  width:100%;
 }
 
-.hero-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+/* =========================
+   HAMBURGER MENU
+========================= */
+.nav-toggle{
+  display:none;
 }
 
-.hero-text h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-  color: #fff;
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+.hamburger{
+  display:none;
+  width:34px;
+  height:28px;
+  position:relative;
+  cursor:pointer;
 }
 
-.hero-text p {
-  font-size: 1.2em;
-  margin-bottom: 15px;
-  color: #dfdfdf;
-  stroke: 2px 2px 5px rgba(255, 110, 110, 0.5);
+.hamburger span{
+  position:absolute;
+  width:100%;
+  height:3px;
+  background:white;
+  border-radius:3px;
+  transition:0.3s ease;
 }
 
-.hero-text a {
-  background-color: #ff3b3f;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.3s;
-  font-weight: bold;
+.hamburger span:nth-child(1){
+  top:4px;
 }
 
-.hero-text a:hover {
-  background-color: #ff6f61;
+.hamburger span:nth-child(2){
+  top:12px;
 }
 
-/* Tentang */
-#tentang {
-  background-color: white;
-  padding: 40px 20px;
-  text-align: center;
-  max-width: 900px;
-  margin: 40px auto;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.hamburger span:nth-child(3){
+  top:20px;
 }
 
-#tentang h2 {
-  color: #ff3b3f;
-  margin-bottom: 15px;
+/* Hamburger Active */
+.nav-toggle:checked + .hamburger span:nth-child(1){
+  transform:translateY(8px) rotate(45deg);
 }
 
-#tentang p {
-  color: #555;
-  line-height: 1.6;
-  font-size: 16px;
+.nav-toggle:checked + .hamburger span:nth-child(2){
+  opacity:0;
 }
 
-/* Produk */
-#produk {
-  padding: 40px 20px;
+.nav-toggle:checked + .hamburger span:nth-child(3){
+  transform:translateY(-8px) rotate(-45deg);
 }
 
-#produk h2 {
-  text-align: center;
-  color: #ff3b3f;
-  margin-bottom: 25px;
+/* =========================
+   HERO SECTION
+========================= */
+header{
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  color:white;
 }
 
-.daftar-produk {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: auto;
+header img{
+  width:100%;
+  height:80vh;
+  object-fit:cover;
+  filter:brightness(60%);
+  transform:scale(1.05);
+  animation:zoomHero 12s ease-in-out infinite alternate;
 }
 
-.produk {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  text-align: center;
-  padding: 20px;
-  transition: transform 0.3s;
+.hero-text{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:90%;
+  max-width:900px;
+  animation:fadeUp 1s ease;
 }
 
-.produk:hover {
-  transform: scale(1.03);
+.hero-text h1{
+  font-size:2.8rem;
+  margin-bottom:12px;
+  text-shadow:2px 2px 10px rgba(0,0,0,0.5);
 }
 
-.produk img {
-  width: 100%;
-  border-radius: 10px;
-  height: 220px;
-  object-fit: cover;
+.hero-text p{
+  font-size:1.15rem;
+  color:#e5e5e5;
+  margin-bottom:22px;
 }
 
-.produk h3 {
-  margin: 10px 0 5px;
-  font-size: 1.1em;
+.hero-text a{
+  display:inline-block;
+  padding:12px 24px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ff3b3f,#ff6f61);
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.35s ease;
+  box-shadow:0 4px 12px rgba(255,59,63,0.4);
 }
 
-.harga {
-  color: #e63946;
-  font-weight: bold;
-  margin: 5px 0;
+.hero-text a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 18px rgba(255,59,63,0.5);
 }
 
-.deskripsi {
-  font-size: 14px;
-  margin-bottom: 15px;
-  color: #555;
+/* =========================
+   TENTANG
+========================= */
+#tentang{
+  background:white;
+  max-width:900px;
+  margin:50px auto;
+  padding:45px 25px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08);
+  transition:0.35s ease;
 }
 
-.tombol {
-  display: inline-block;
-  background-color: #ff3b3f;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.3s;
+#tentang:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 22px rgba(0,0,0,0.12);
 }
 
-.tombol:hover {
-  background-color: #ff6f61;
+#tentang h2{
+  color:#ff3b3f;
+  margin-bottom:15px;
 }
 
-/* Kontak */
-#kontak {
-  background: white;
-  padding: 40px 20px;
-  text-align: center;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
-  margin-top: 40px;
+#tentang p{
+  color:#555;
+  font-size:16px;
+  line-height:1.8;
 }
 
-#kontak h2 {
-  color: #ff3b3f;
-  margin-bottom: 10px;
+/* =========================
+   PRODUK
+========================= */
+#produk{
+  padding:50px 20px;
 }
 
-#kontak p {
-  color: #555;
-  font-size: 15px;
+#produk h2{
+  text-align:center;
+  color:#ff3b3f;
+  margin-bottom:35px;
 }
 
-footer {
-  background-color: #5f5f5f;
-  color: white;
-  text-align: center;
-  padding: 10px;
+.daftar-produk{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:24px;
+  max-width:1150px;
+  margin:auto;
+}
+
+.produk{
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition:0.35s ease;
+}
+
+.produk:hover{
+  transform:translateY(-8px);
+  box-shadow:0 10px 24px rgba(0,0,0,0.12);
+}
+
+.produk img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  transition:0.4s ease;
+}
+
+.produk:hover img{
+  transform:scale(1.04);
+}
+
+.produk h3{
+  margin:14px 0 8px;
+  font-size:1.1rem;
+}
+
+.deskripsi{
+  font-size:14px;
+  color:#555;
+  margin-bottom:15px;
+}
+
+.tombol{
+  display:inline-block;
+  padding:10px 22px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ff3b3f,#ff6f61);
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.35s ease;
+  box-shadow:0 4px 12px rgba(255,59,63,0.3);
+}
+
+.tombol:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(255,59,63,0.45);
+}
+
+/* =========================
+   KONTAK
+========================= */
+#kontak{
+  background:white;
+  margin-top:50px;
+  padding:45px 20px;
+  text-align:center;
+  box-shadow:0 -2px 8px rgba(0,0,0,0.05);
+}
+
+#kontak h2{
+  color:#ff3b3f;
+  margin-bottom:15px;
+}
+
+#kontak p{
+  color:#555;
+  margin:8px 0;
+}
+
+#kontak a{
+  color:#ff3b3f;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer{
+  background:#5f5f5f;
+  color:white;
+  text-align:center;
+  padding:14px;
+  font-size:14px;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translate(-50%, -40%);
+  }
+
+  to{
+    opacity:1;
+    transform:translate(-50%, -50%);
+  }
+}
+
+@keyframes zoomHero{
+  from{
+    transform:scale(1.05);
+  }
+
+  to{
+    transform:scale(1.12);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width:900px){
+
+  .hero-text h1{
+    font-size:2rem;
+  }
+
+  .hero-text p{
+    font-size:1rem;
+  }
+
+}
+
+@media (max-width:800px){
+
+  nav{
+    padding:10px 16px;
+  }
+
+  .logo img{
+    width:36px;
+    height:36px;
+  }
+
+  .hamburger{
+    display:block;
+  }
+
+  .menu{
+    position:absolute;
+    top:100%;
+    right:14px;
+    width:220px;
+    background:rgba(71,71,71,0.98);
+    flex-direction:column;
+    align-items:flex-start;
+    padding:12px;
+    border-radius:10px;
+    opacity:0;
+    pointer-events:none;
+    transform:scale(0.95);
+    transition:0.3s ease;
+    box-shadow:0 8px 22px rgba(0,0,0,0.2);
+  }
+
+  .menu a{
+    width:100%;
+    padding:10px;
+  }
+
+  .nav-toggle:checked ~ .menu{
+    opacity:1;
+    pointer-events:auto;
+    transform:scale(1);
+  }
+
+  header img{
+    height:65vh;
+  }
+
+  .hero-text h1{
+    font-size:1.7rem;
+  }
+
+  .hero-text p{
+    font-size:0.95rem;
+  }
+
+  /* =========================
+   POPUP GAMBAR
+========================= */
+
+.popup{
+  display:none;
+  position:fixed;
+  z-index:9999;
+  padding-top:60px;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:auto;
+  background:rgba(0,0,0,0.9);
+  animation:fadePopup 0.3s ease;
+}
+
+.popup-content{
+  display:block;
+  margin:auto;
+  max-width:80%;
+  max-height:80vh;
+  border-radius:12px;
+  animation:zoomPopup 0.3s ease;
+}
+
+.close{
+  position:absolute;
+  top:20px;
+  right:35px;
+  color:white;
+  font-size:40px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.close:hover{
+  color:#ff3b3f;
+}
+
+.produk img{
+  cursor:pointer;
+}
+
+@keyframes zoomPopup{
+  from{
+    transform:scale(0.7);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+@keyframes fadePopup{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+  
+/* =========================
+   SEARCH NAVBAR
+========================= */
+
+#search{
+  padding:8px 14px;
+  border:none;
+  border-radius:20px;
+  outline:none;
+  font-size:14px;
+  width:180px;
+  transition:0.3s ease;
+}
+
+#search:focus{
+  width:220px;
+  box-shadow:0 0 10px rgba(255,255,255,0.3);
+}
+
+/* =========================
+   WHATSAPP MINI
+========================= */
+
+.wa-float{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+
+  width:45px;
+  height:45px;
+
+  background:#25d366;
+  color:white;
+
+  border-radius:50%;
+  text-align:center;
+  line-height:45px;
+
+  font-size:22px;
+  text-decoration:none;
+
+  z-index:999;
+
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+
+  transition:0.3s ease;
+}
+
+.wa-float:hover{
+  transform:scale(1.08);
+  background:#1ebe5d;
+}  
+
+
+}
+
+/* =========================
+   LOADING SCREEN
+========================= */
+
+#loader{
+  position:fixed;
+  width:100%;
+  height:100vh;
+
+  background:white;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  z-index:99999;
+
+  transition:opacity 0.5s ease;
+}
+
+.spinner{
+  width:60px;
+  height:60px;
+
+  border:6px solid #ddd;
+  border-top:6px solid #ff3b3f;
+
+  border-radius:50%;
+
+  animation:spin 1s linear infinite;
+}
+
+#loader h2{
+  margin-top:20px;
+  color:#ff3b3f;
+  font-size:24px;
+  letter-spacing:1px;
+}
+
+@keyframes spin{
+
+  0%{
+    transform:rotate(0deg);
+  }
+
+  100%{
+    transform:rotate(360deg);
+  }
+
+}
+
+.logo-loader{
+  width:90px;
+  margin-top:20px;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+#darkMode{
+  border:none;
+  background:white;
+  padding:8px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+/* MODE GELAP */
+
+.dark{
+  background:#121212;
+  color:white;
+}
+
+.dark nav{
+  background:#1e1e1e;
+}
+
+.dark #tentang,
+.dark .produk,
+.dark #kontak{
+  background:#1f1f1f;
+  color:white;
+}
+
+.dark .deskripsi,
+.dark #tentang p,
+.dark #kontak p{
+  color:#ddd;
+}
+
+.dark footer{
+  background:#1a1a1a;
 }
